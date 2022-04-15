@@ -1,11 +1,13 @@
 import MenuComponent from "./components/menu";
 import NavbarComponent from "./components/navbar";
+import { Container } from "./styles";
 
 export default function HeaderComponent() {
-  return (<div>
-    <NavbarComponent />
-    <div>Backoffice</div>
-    <MenuComponent />
-  </div>
+  return (
+    <Container>
+      <NavbarComponent />
+      <div>Backoffice</div>
+      <MenuComponent />
+    </Container>
   )
 }
