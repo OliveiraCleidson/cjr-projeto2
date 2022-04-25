@@ -1,6 +1,16 @@
 import { Container, TableButton, TableContainer, TableHeader, TableRow } from "./styles";
+import { useEffect, useState } from "react";
+import { User, useUserService } from "../../contexts/user.context";
 
 export default function UsuariosPage() {
+  const [users, setUsers] = useState<User[]>([]);
+  const { get } = useUserService();
+
+  useEffect(() => {
+    get()
+      .then((result) => setUsers(result))
+      .catch(err => alert(err))
+  }, [setUsers])
   return (
     <Container>
       <TableContainer>
@@ -19,27 +29,27 @@ export default function UsuariosPage() {
           </div>
         </TableHeader>
 
-        <TableRow>
+        {users.map(user => (<TableRow key={user.id}>
           <div>
-            Lauren Shaxby
+            {user.name}
           </div>
           <div>
-            lshaxby@php.net
+            {user.email}
           </div>
           <div>
-            16/10/2021
+            {user.dtCreatedAt.toISOString()}
           </div>
           <div className="buttonCell">
             <TableButton variant='editar'>
               editar
             </TableButton>
           </div>
-          <div className="buttonCell"> 
+          <div className="buttonCell">
             <TableButton variant='excluir'>
               excluir
             </TableButton>
-          </div>      
-        </TableRow>
+          </div>
+        </TableRow>))}
 
       </TableContainer>
     </Container>
